@@ -102,6 +102,85 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+    let consoleLog = errorBtns[0];
+    consoleLog.addEventListener('click', () => {
+      console.log("Console Log Demo");
+    });
+
+    let consoleError = errorBtns[1];
+    consoleError.addEventListener('click', () => {
+      console.error("Console Error Demo");
+    });
+
+    let consoleCount = errorBtns[2];
+    consoleCount.addEventListener('click', () => {
+      console.count("Count Button");
+    });
+
+    let consoleWarn = errorBtns[3];
+    consoleWarn.addEventListener('click', () => {
+      console.warn("Console Warn Button");
+    });
+
+    let consoleAssert = errorBtns[4];
+    let x = 2;
+    consoleAssert.addEventListener('click', () => {
+      console.assert(x == 3, "The number does not equal 3.");
+    });
+
+    let consoleClear = errorBtns[5];
+    consoleClear.addEventListener('click', () => {
+      console.clear();
+    });
+
+    let consoleDir = errorBtns[6];
+    let colors = ["green", "yellow", "red"];
+    consoleDir.addEventListener('click', () => {
+      console.dir(colors);
+    });
+
+    let consoleDirxml = errorBtns[7];
+    consoleDirxml.addEventListener('click', () => {
+      console.dirxml(consoleDirxml);
+    });
+
+    let consoleGroupStart = errorBtns[8];
+    consoleGroupStart.addEventListener('click', () => {
+      console.group();
+
+      let consoleGroupEnd = errorBtns[9];
+      consoleGroupEnd.addEventListener('click', () => {
+        console.groupEnd();
+      });
+    });
+
+    let consoleTable = errorBtns[10];
+    consoleTable.addEventListener('click', () => {
+      console.table(colors);
+    });
+
+    let startTimer = errorBtns[11];
+    startTimer.addEventListener('click', () => {
+      console.time();
+      
+      let endTimer = errorBtns[12];
+      endTimer.addEventListener('click', () => {
+        console.timeEnd();
+      });
+    });
+
+    function foo() {
+      foo2();
+    }
+
+    function foo2() {
+      console.trace();
+    }
+
+    let consoleTrace = errorBtns[13];
+    consoleTrace.addEventListener('click', () => {
+      foo2();
+    })
   </script>
 </body>
 
