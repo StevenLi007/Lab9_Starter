@@ -87,7 +87,53 @@
     </section>
   </main>
 
+  <!-- TrackJS code snippet -->
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+    <!-- <script>
+      window.TrackJS && TrackJS.install({ 
+        token: "eafbe2b3db4944e283858a6cba9bd1fa"
+        // for more configuration options, see https://docs.trackjs.com
+      });
+      console.log("Agent installed.");
+    </script> -->
+
+    <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+    <script>
+      window.TrackJS && TrackJS.install({ 
+        token: "eafbe2b3db4944e283858a6cba9bd1fa",
+        application: "lab-9"
+      });
+    </script>
+
   <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "eafbe2b3db4944e283858a6cba9bd1fa",
+      application: "lab-9"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+
+    (function(d, s, id) {
+      var js, tjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = 'https://cdn.trackjs.com/releases/current/tracker.js';
+      tjs.parentNode.insertBefore(js, tjs);
+    })(document, 'script', 'trackjs-tracker');
+
+    try {
+      throw new Error("Test error.");
+    } catch (err) {
+      console.error('Error: ', error);
+    }
+
+    class NaNError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = 'NaNError';
+      }
+    }
+
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
       e.preventDefault();
@@ -95,7 +141,21 @@
       let firstNum = document.querySelector('#first-num').value;
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+
+      console.log(operator);
+
+      try {
+        if (isNaN(firstNum) || isNaN(secondNum)) {
+          throw new NaNError('Input is not a number.');
+        }
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      } catch (error) {
+        if (error instanceof NaNError) {
+          console.error('NaN Error:', error.message);
+        } else {
+          console.error('Error:', error.message);
+        }
+      }
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
@@ -180,7 +240,29 @@
     let consoleTrace = errorBtns[13];
     consoleTrace.addEventListener('click', () => {
       foo2();
-    })
+    });
+
+    let triggerGlobalError = errorBtns[14];
+    triggerGlobalError.addEventListener('click', () => {
+      try {
+        let success = true;
+        if (success) {
+          let score = 100;
+        }
+        console.log(score);
+      } catch (err) {
+        console.log("Sadly there was an error.");
+        console.error(err.stack);
+      }
+    });
+
+    // Getting error from window.onerror and printing to console
+    window.onerror = function(message, source, lineno, colno, error) {
+      console.error('Error:', message);
+    };
+    throw new Error('This is just a test, everybody calm!'); 
+    
+    TrackJS.track('Testing TrackJS!');
   </script>
 </body>
 
